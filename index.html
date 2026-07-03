@@ -32,6 +32,34 @@ html,body{margin:0;padding:0;background:#060a06}
 .page-btn:hover{border-color:#9dff3f!important}
 .link-btn{transition:all .2s ease}
 .link-btn:hover{border-color:#9dff3f!important;color:#9dff3f!important}
+
+/* ── mobile (≤768px) — desktop untouched ── */
+@media (max-width:768px){
+  #viewport{cursor:default!important}
+  .hero{flex-direction:column!important;justify-content:center!important;padding:70px 24px 0!important;gap:6px!important}
+  .hero>div:first-child{gap:14px!important}
+  .big-title{font-size:34px!important}
+  .sub{font-size:13px!important}
+  .desc{font-size:12px!important}
+  .sphere-box{width:100%!important;height:190px!important;transform:scale(.5)}
+  .scroll-hint{bottom:52px!important;padding:0 16px}
+  .wp-pad{padding:76px 20px 0!important;gap:18px!important}
+  .h1{font-size:26px!important}
+  #shippedLine{font-size:12px!important}
+  #projGrid{display:flex!important;overflow-x:auto!important;gap:14px!important;scroll-snap-type:x mandatory;padding-bottom:6px}
+  #projGrid>.proj-card{flex:0 0 78%;min-height:200px!important;padding:18px!important;scroll-snap-align:start}
+  .about-row{flex-direction:column!important;gap:18px!important;align-items:center!important}
+  .photo-box{width:200px!important;height:240px!important}
+  #photoFrame{width:180px!important;height:220px!important;font-size:10px!important}
+  .p1{font-size:13px!important}
+  .p2{display:none!important}
+  .hud-top{padding:12px 16px!important}
+  .nav{gap:16px!important}
+  .hud-bottom{padding:10px 16px!important}
+  #coords{display:none!important}
+  .progress-track{width:110px!important}
+  #depth{min-width:0!important}
+}
 </style>
 </head>
 <body>
@@ -49,19 +77,19 @@ html,body{margin:0;padding:0;background:#060a06}
 
     <!-- WAYPOINT 01 · HOME -->
     <div id="s0" style="position:absolute;inset:0;transform:translateZ(0px)">
-      <div style="max-width:1240px;height:100%;margin:0 auto;padding:0 56px;display:flex;align-items:center;gap:20px">
+      <div class="hero" style="max-width:1240px;height:100%;margin:0 auto;padding:0 56px;display:flex;align-items:center;gap:20px">
         <div style="flex:1;display:flex;flex-direction:column;gap:22px">
           <div style="color:rgba(210,255,180,.55);font-size:13px;animation:fadeUp .6s ease 2.5s both">&gt; initializing profile… <span style="color:#3fffd8">ok</span></div>
-          <div style="overflow:hidden;white-space:nowrap;width:12ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
-          <div style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 3s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
-          <div style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 3.15s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
+          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:12ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
+          <div class="sub" style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 3s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
+          <div class="desc" style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 3.15s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
           <div style="display:flex;gap:16px;animation:fadeUp .6s ease 3.3s both">
             <div class="btn-primary" data-go="1" style="border:1px solid #9dff3f;color:#9dff3f;background:rgba(150,255,70,.08);font-size:14px;padding:14px 22px;cursor:pointer;box-shadow:0 0 18px rgba(150,255,70,.15)">cd /projects</div>
             <div class="btn-ghost" data-go="2" style="border:1px solid rgba(150,255,70,.35);color:rgba(210,255,180,.75);font-size:14px;padding:14px 22px;cursor:pointer">cat about.md</div>
           </div>
         </div>
         <!-- wireframe sphere + satellite -->
-        <div style="width:380px;height:380px;display:flex;align-items:center;justify-content:center;perspective:800px;animation:fadeIn 1s ease 2.9s both">
+        <div class="sphere-box" style="width:380px;height:380px;display:flex;align-items:center;justify-content:center;perspective:800px;animation:fadeIn 1s ease 2.9s both">
           <div id="sphere" style="transform-style:preserve-3d;transition:transform .18s ease-out">
             <div style="width:240px;height:240px;transform-style:preserve-3d;animation:sphereSpin 12s linear infinite">
               <div style="position:absolute;inset:0;border:1.5px solid rgba(150,255,70,.8);border-radius:50%"></div>
@@ -78,7 +106,7 @@ html,body{margin:0;padding:0;background:#060a06}
           </div>
         </div>
       </div>
-      <div style="position:absolute;left:0;right:0;bottom:86px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp .6s ease 3.5s both">
+      <div class="scroll-hint" style="position:absolute;left:0;right:0;bottom:86px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp .6s ease 3.5s both">
         <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.45)">SCROLL ▼ TO TRAVEL — NEXT WAYPOINT: /PROJECTS 1600u</div>
         <div style="width:1px;height:24px;background:linear-gradient(#9dff3f,transparent);animation:scrollHint 1.6s ease-in-out infinite"></div>
       </div>
@@ -86,10 +114,10 @@ html,body{margin:0;padding:0;background:#060a06}
 
     <!-- WAYPOINT 02 · PROJECTS -->
     <div id="s1" style="position:absolute;inset:0;transform:translateZ(-1600px);opacity:.15">
-      <div style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:36px">
+      <div class="wp-pad" style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:36px">
         <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.4)">WAYPOINT 02/03 — ~/projects</div>
         <div style="display:flex;flex-direction:column;gap:14px">
-          <div style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; ls ~/projects</div>
+          <div class="h1" style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; ls ~/projects</div>
           <div id="shippedLine" style="color:rgba(210,255,180,.55);font-size:14px"></div>
         </div>
         <div id="projGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch"></div>
@@ -106,11 +134,11 @@ html,body{margin:0;padding:0;background:#060a06}
 
     <!-- WAYPOINT 03 · ABOUT -->
     <div id="s2" style="position:absolute;inset:0;transform:translateZ(-3200px);opacity:.1">
-      <div style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:34px">
+      <div class="wp-pad" style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:34px">
         <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.4)">WAYPOINT 03/03 — ~/about</div>
-        <div style="display:flex;gap:56px;align-items:flex-start">
+        <div class="about-row" style="display:flex;gap:56px;align-items:flex-start">
           <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="position:relative;width:280px;height:340px;padding:10px">
+            <div class="photo-box" style="position:relative;width:280px;height:340px;padding:10px">
               <div style="position:absolute;left:0;top:0;width:22px;height:22px;border-left:2px solid #9dff3f;border-top:2px solid #9dff3f"></div>
               <div style="position:absolute;right:0;top:0;width:22px;height:22px;border-right:2px solid #9dff3f;border-top:2px solid #9dff3f"></div>
               <div style="position:absolute;left:0;bottom:0;width:22px;height:22px;border-left:2px solid #9dff3f;border-bottom:2px solid #9dff3f"></div>
@@ -123,9 +151,9 @@ html,body{margin:0;padding:0;background:#060a06}
             <div style="color:rgba(210,255,180,.35);font-size:11px;text-align:center">// drag a photo onto the frame</div>
           </div>
           <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:560px">
-            <div style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; cat readme.md</div>
-            <div style="font-family:'Space Grotesk',sans-serif;color:rgba(226,245,215,.78);font-size:16px;line-height:1.75">I'm Dylan Spivey. I'm learning to program and publishing the whole process — every bug, breakthrough, and lesson ends up here.</div>
-            <div style="font-family:'Space Grotesk',sans-serif;color:rgba(226,245,215,.6);font-size:15px;line-height:1.75">No highlight reel. This site is the notebook: what I'm building, what broke, and what I'd do differently next time.</div>
+            <div class="h1" style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; cat readme.md</div>
+            <div class="p1" style="font-family:'Space Grotesk',sans-serif;color:rgba(226,245,215,.78);font-size:16px;line-height:1.75">I'm Dylan Spivey. I'm learning to program and publishing the whole process — every bug, breakthrough, and lesson ends up here.</div>
+            <div class="p2" style="font-family:'Space Grotesk',sans-serif;color:rgba(226,245,215,.6);font-size:15px;line-height:1.75">No highlight reel. This site is the notebook: what I'm building, what broke, and what I'd do differently next time.</div>
             <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
               <div style="color:rgba(210,255,180,.45);letter-spacing:2px;font-size:11px">CURRENTLY:</div>
               <div style="color:#9dff3f">&gt; learning programming fundamentals</div>
@@ -145,9 +173,9 @@ html,body{margin:0;padding:0;background:#060a06}
   </div>
 
   <!-- ═══ HUD TOP ═══ -->
-  <div style="position:absolute;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 36px;border-bottom:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
+  <div class="hud-top" style="position:absolute;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 36px;border-bottom:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
     <div style="display:flex;align-items:center;gap:8px;color:#9dff3f;font-size:13px">dylan@spivey:~$<div style="width:8px;height:15px;background:#9dff3f;animation:blinkCursor 1.2s step-end infinite"></div></div>
-    <div style="display:flex;gap:28px;font-size:12px;letter-spacing:1px">
+    <div class="nav" style="display:flex;gap:28px;font-size:12px;letter-spacing:1px">
       <div id="nav0" data-go="0" style="color:#9dff3f;cursor:pointer;transition:color .2s ease">/home</div>
       <div id="nav1" data-go="1" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/projects</div>
       <div id="nav2" data-go="2" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/about</div>
@@ -156,11 +184,11 @@ html,body{margin:0;padding:0;background:#060a06}
   </div>
 
   <!-- ═══ HUD BOTTOM ═══ -->
-  <div style="position:absolute;bottom:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 36px;border-top:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
+  <div class="hud-bottom" style="position:absolute;bottom:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 36px;border-top:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
     <div id="coords" style="color:rgba(210,255,180,.45);font-size:11px;letter-spacing:1px;min-width:130px">X:0000 Y:0000</div>
     <div style="display:flex;align-items:center;gap:16px">
       <div id="path" style="color:#9dff3f;font-size:12px;letter-spacing:1px;min-width:80px;text-align:right">~/home</div>
-      <div style="position:relative;width:340px;height:3px;background:rgba(150,255,70,.18)">
+      <div class="progress-track" style="position:relative;width:340px;height:3px;background:rgba(150,255,70,.18)">
         <div style="position:absolute;left:0;top:-2px;width:1px;height:7px;background:rgba(150,255,70,.5)"></div>
         <div style="position:absolute;left:50%;top:-2px;width:1px;height:7px;background:rgba(150,255,70,.5)"></div>
         <div style="position:absolute;right:0;top:-2px;width:1px;height:7px;background:rgba(150,255,70,.5)"></div>
