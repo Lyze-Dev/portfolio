@@ -18,7 +18,7 @@ html,body{margin:0;padding:0;background:#060a06}
 @keyframes spinZ{from{transform:rotateZ(0deg)}to{transform:rotateZ(360deg)}}
 @keyframes pulseGlow{0%,100%{opacity:.45}50%{opacity:1}}
 @keyframes scrollHint{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(8px);opacity:.35}}
-@keyframes typeIn{from{width:0ch}to{width:12ch}}
+@keyframes typeIn{from{width:0ch}to{width:12.6ch}}
 @keyframes bootHide{to{opacity:0;visibility:hidden}}
 
 /* hover states (were DC style-hover attrs) */
@@ -47,8 +47,8 @@ html,body{margin:0;padding:0;background:#060a06}
   .wp-pad{padding:76px 20px 0!important;gap:18px!important}
   .h1{font-size:26px!important}
   #shippedLine{font-size:12px!important}
-  #projGrid{display:flex!important;overflow-x:auto!important;gap:14px!important;scroll-snap-type:x mandatory;padding-bottom:6px}
-  #projGrid>.proj-card{flex:0 0 78%;min-height:200px!important;padding:18px!important;scroll-snap-align:start}
+  #projGrid{grid-template-columns:1fr!important}
+  #projGrid>.proj-card{min-height:200px!important;padding:18px!important}
   .about-row{flex-direction:column!important;gap:18px!important;align-items:center!important}
   .photo-box{width:200px!important;height:240px!important}
   #photoFrame{width:180px!important;height:220px!important;font-size:10px!important}
@@ -82,7 +82,7 @@ html,body{margin:0;padding:0;background:#060a06}
       <div class="hero" style="max-width:1240px;height:100%;margin:0 auto;padding:0 56px;display:flex;align-items:center;gap:20px">
         <div style="flex:1;display:flex;flex-direction:column;gap:22px">
           <div style="color:rgba(210,255,180,.55);font-size:13px;animation:fadeUp .6s ease 2.5s both">&gt; initializing profile… <span style="color:#3fffd8">ok</span></div>
-          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:12ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
+          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:12.6ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
           <div class="sub" style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 3s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
           <div class="desc" style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 3.15s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
           <div style="display:flex;gap:16px;animation:fadeUp .6s ease 3.3s both">
@@ -224,7 +224,8 @@ const projects = [
   { shipped:false, status:'○ QUEUED',  statusColor:'rgba(210,255,180,.4)', name:'reserved_slot', nameColor:'rgba(210,255,180,.5)', desc:'// the next thing i learn gets built here', tags:[], foot:'awaiting input_', footColor:'rgba(210,255,180,.35)', border:'dashed rgba(150,255,70,.3)', bg:'transparent' },
   { shipped:false, status:'○ QUEUED',  statusColor:'rgba(210,255,180,.4)', name:'reserved_slot', nameColor:'rgba(210,255,180,.5)', desc:'// ideas compile faster than they ship', tags:[], foot:'awaiting input_', footColor:'rgba(210,255,180,.35)', border:'dashed rgba(150,255,70,.3)', bg:'transparent' }
 ];
-const PER = 3, D = 1600;
+// ponytail: 1 card per page on mobile — swipe/buttons paginate; CSS scroll inside 3D transforms is flaky on phones
+const PER = matchMedia('(max-width:768px)').matches ? 1 : 3, D = 1600;
 const el = id => document.getElementById(id);
 const clamp = (v,a,b) => Math.min(Math.max(v,a),b);
 let page = 0;
@@ -257,6 +258,14 @@ function renderProjects(){
 el('prevPage').onclick = ()=>{ page = Math.max(0, page-1); renderProjects(); };
 el('nextPage').onclick = ()=>{ page = page+1; renderProjects(); };
 renderProjects();
+
+// swipe left/right on the project grid to paginate
+let touchX = 0;
+el('projGrid').addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+el('projGrid').addEventListener('touchend', e=>{
+  const dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 40) el(dx < 0 ? 'nextPage' : 'prevPage').onclick();
+}, {passive:true});
 
 // ── navigation (nav + hero buttons) ──
 function goTo(i){
