@@ -41,7 +41,8 @@ html,body{margin:0;padding:0;background:#060a06}
   .big-title{font-size:34px!important}
   .sub{font-size:13px!important}
   .desc{font-size:12px!important}
-  .sphere-box{width:100%!important;height:190px!important;transform:scale(.5)}
+  .hero>div:first-child{position:relative;z-index:1}
+  .sphere-box{position:absolute!important;left:0!important;right:0!important;top:50%!important;width:auto!important;height:auto!important;transform:translateY(-50%) scale(.7);opacity:.22!important;pointer-events:none;z-index:0}
   .scroll-hint{bottom:52px!important;padding:0 16px}
   .wp-pad{padding:76px 20px 0!important;gap:18px!important}
   .h1{font-size:26px!important}
@@ -54,6 +55,7 @@ html,body{margin:0;padding:0;background:#060a06}
   .p1{font-size:13px!important}
   .p2{display:none!important}
   .hud-top{padding:12px 16px!important}
+  .sys{display:none!important}
   .nav{gap:16px!important}
   .hud-bottom{padding:10px 16px!important}
   #coords{display:none!important}
@@ -180,7 +182,7 @@ html,body{margin:0;padding:0;background:#060a06}
       <div id="nav1" data-go="1" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/projects</div>
       <div id="nav2" data-go="2" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/about</div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;color:rgba(210,255,180,.55);font-size:11px;letter-spacing:2px">SYS.ONLINE<div style="width:8px;height:8px;background:#9dff3f;animation:blinkCursor 1.2s step-end infinite"></div></div>
+    <div class="sys" style="display:flex;align-items:center;gap:8px;color:rgba(210,255,180,.55);font-size:11px;letter-spacing:2px">SYS.ONLINE<div style="width:8px;height:8px;background:#9dff3f;animation:blinkCursor 1.2s step-end infinite"></div></div>
   </div>
 
   <!-- ═══ HUD BOTTOM ═══ -->
@@ -289,7 +291,9 @@ function tick(){
   for (let i=0;i<3;i++){
     const s = el('s'+i);
     const d = i - p;
-    const o = d >= 0 ? Math.max(1 - d*0.55, 0.1) : Math.max(1 + d*1.9, 0);
+    // ponytail: mobile screens overlap when ghosted, so fade distant waypoints out entirely
+    const mobile = innerWidth <= 768;
+    const o = d >= 0 ? Math.max(1 - d*(mobile ? 1.6 : 0.55), mobile ? 0 : 0.1) : Math.max(1 + d*1.9, 0);
     s.style.opacity = o.toFixed(3);
     s.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
     s.style.pointerEvents = Math.abs(d) < 0.4 ? 'auto' : 'none';
