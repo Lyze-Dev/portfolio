@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;background:#060a06}
+html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 ::selection{background:#9dff3f;color:#060a06}
 *{box-sizing:border-box}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
@@ -18,7 +18,7 @@ html,body{margin:0;padding:0;background:#060a06}
 @keyframes spinZ{from{transform:rotateZ(0deg)}to{transform:rotateZ(360deg)}}
 @keyframes pulseGlow{0%,100%{opacity:.45}50%{opacity:1}}
 @keyframes scrollHint{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(8px);opacity:.35}}
-@keyframes typeIn{from{width:0ch}to{width:12.6ch}}
+@keyframes typeIn{from{width:0ch}to{width:13ch}}
 @keyframes bootHide{to{opacity:0;visibility:hidden}}
 
 /* hover states (were DC style-hover attrs) */
@@ -82,7 +82,7 @@ html,body{margin:0;padding:0;background:#060a06}
       <div class="hero" style="max-width:1240px;height:100%;margin:0 auto;padding:0 56px;display:flex;align-items:center;gap:20px">
         <div style="flex:1;display:flex;flex-direction:column;gap:22px">
           <div style="color:rgba(210,255,180,.55);font-size:13px;animation:fadeUp .6s ease 2.5s both">&gt; initializing profile… <span style="color:#3fffd8">ok</span></div>
-          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:12.6ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
+          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:13ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
           <div class="sub" style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 3s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
           <div class="desc" style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 3.15s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
           <div style="display:flex;gap:16px;animation:fadeUp .6s ease 3.3s both">
@@ -218,6 +218,11 @@ html,body{margin:0;padding:0;background:#060a06}
 </div>
 
 <script>
+// always boot at /home — browsers otherwise restore the old scroll position (= camera depth)
+history.scrollRestoration = 'manual';
+scrollTo(0, 0);
+addEventListener('load', () => scrollTo(0, 0)); // browser re-restores scroll late in the load; reset again
+
 // ── add new projects here; pagination handles the rest ──
 const projects = [
   { shipped:true,  status:'● SHIPPED', statusColor:'#9dff3f', name:'dylanspivey.dev', nameColor:'#e8ffdb', desc:'this site — a navigable 3D world, built from scratch while learning front-end.', tags:['html','css','3d'], foot:'read the build log →', footColor:'#9dff3f', border:'solid rgba(150,255,70,.5)', bg:'rgba(150,255,70,.05)' },
