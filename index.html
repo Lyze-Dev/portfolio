@@ -163,9 +163,8 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
               <div style="color:#9dff3f">&gt; writing the first posts</div>
             </div>
             <div style="display:flex;align-items:center;gap:14px">
-              <a class="link-btn" href="#" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">GITHUB ↗</a>
-              <a class="link-btn" href="#" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">EMAIL ↗</a>
-              <div style="color:rgba(210,255,180,.3);font-size:11px">// links wired up soon</div>
+              <a class="link-btn" href="https://github.com/Lyze-Dev" target="_blank" rel="noopener" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">GITHUB ↗</a>
+              <a class="link-btn" href="mailto:dspivey911@gmail.com" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">EMAIL ↗</a>
             </div>
             <div style="display:flex;align-items:center;gap:8px;color:rgba(210,255,180,.5);font-size:13px;padding-top:6px">END OF LINE<div style="width:9px;height:16px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div><span style="color:rgba(210,255,180,.3);padding-left:14px">scroll ▲ to travel back</span></div>
           </div>
@@ -225,7 +224,7 @@ addEventListener('load', () => scrollTo(0, 0)); // browser re-restores scroll la
 
 // ── add new projects here; pagination handles the rest ──
 const projects = [
-  { shipped:true,  status:'● SHIPPED', statusColor:'#9dff3f', name:'dylanspivey.dev', nameColor:'#e8ffdb', desc:'this site — a navigable 3D world, built from scratch while learning front-end.', tags:['html','css','3d'], foot:'read the build log →', footColor:'#9dff3f', border:'solid rgba(150,255,70,.5)', bg:'rgba(150,255,70,.05)' },
+  { shipped:true,  status:'● SHIPPED', statusColor:'#9dff3f', name:'dylanspivey.dev', nameColor:'#e8ffdb', desc:'this site — a navigable 3D world, built from scratch while learning front-end.', tags:['html','css','3d'], foot:'read the build log →', footColor:'#9dff3f', border:'solid rgba(150,255,70,.5)', bg:'rgba(150,255,70,.05)', link:'./build-log.html' },
   { shipped:false, status:'○ QUEUED',  statusColor:'rgba(210,255,180,.4)', name:'reserved_slot', nameColor:'rgba(210,255,180,.5)', desc:'// the next thing i learn gets built here', tags:[], foot:'awaiting input_', footColor:'rgba(210,255,180,.35)', border:'dashed rgba(150,255,70,.3)', bg:'transparent' },
   { shipped:false, status:'○ QUEUED',  statusColor:'rgba(210,255,180,.4)', name:'reserved_slot', nameColor:'rgba(210,255,180,.5)', desc:'// ideas compile faster than they ship', tags:[], foot:'awaiting input_', footColor:'rgba(210,255,180,.35)', border:'dashed rgba(150,255,70,.3)', bg:'transparent' }
 ];
@@ -243,7 +242,7 @@ function renderProjects(){
   el('projGrid').innerHTML = slice.map((p,i)=>{
     const num = String(page*PER + i + 1).padStart(2,'0');
     const tags = p.tags.map(t=>`<div style="border:1px solid rgba(150,255,70,.3);color:rgba(210,255,180,.6);font-size:11px;padding:4px 9px">${t}</div>`).join('');
-    return `<div class="proj-card" style="border:1px ${p.border};background:${p.bg};padding:26px;display:flex;flex-direction:column;gap:16px;cursor:pointer;min-height:250px">
+    return `<div class="proj-card" ${p.link ? `onclick="location.href='${p.link}'"` : ''} style="border:1px ${p.border};background:${p.bg};padding:26px;display:flex;flex-direction:column;gap:16px;cursor:pointer;min-height:250px">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div style="color:rgba(210,255,180,.4);font-size:13px">${num}</div>
         <div style="color:${p.statusColor};font-size:11px;letter-spacing:2px">${p.status}</div>
