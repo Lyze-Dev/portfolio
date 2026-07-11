@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>DYLAN_SPIVEY — dev log</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-::selection{background:#9dff3f;color:#060a06}
+html,body{margin:0;padding:0;background:#050505;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+::selection{background:#9dff3f;color:#050505}
 *{box-sizing:border-box}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -21,17 +22,32 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
 @keyframes typeIn{from{width:0ch}to{width:13ch}}
 @keyframes bootHide{to{opacity:0;visibility:hidden}}
 
-/* hover states (were DC style-hover attrs) */
-.btn-primary{transition:all .2s ease}
-.btn-primary:hover{background:rgba(150,255,70,.18)!important;box-shadow:0 0 30px rgba(150,255,70,.35)!important}
-.btn-ghost{transition:all .2s ease}
-.btn-ghost:hover{border-color:#9dff3f!important;color:#9dff3f!important}
-.proj-card{transition:all .25s ease}
-.proj-card:hover{border-color:#9dff3f!important;box-shadow:0 0 28px rgba(150,255,70,.15);transform:translateY(-5px)}
-.page-btn{transition:all .2s ease}
-.page-btn:hover{border-color:#9dff3f!important}
-.link-btn{transition:all .2s ease}
-.link-btn:hover{border-color:#9dff3f!important;color:#9dff3f!important}
+/* ── premium surface & motion system ── */
+:root{--ease:cubic-bezier(.32,.72,0,1)}
+
+/* pill buttons with nested icon island */
+.btnp,.btng{display:inline-flex;align-items:center;gap:12px;border-radius:999px;padding:8px 9px 8px 22px;font-size:14px;font-weight:500;cursor:pointer;text-decoration:none;transition:transform .6s var(--ease),background .6s var(--ease),border-color .6s var(--ease)}
+.btnp{background:#9dff3f;color:#0a0f05;border:1px solid transparent}
+.btnp:hover{background:#b1ff66}
+.btng{border:1px solid rgba(255,255,255,.14);color:#e8ffdb;background:rgba(255,255,255,.03)}
+.btng:hover{border-color:rgba(157,255,63,.55)}
+.btnp:active,.btng:active{transform:scale(.98)}
+.isl{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;transition:transform .6s var(--ease)}
+.btnp .isl{background:rgba(0,0,0,.14)}
+.btng .isl{background:rgba(255,255,255,.08)}
+.btnp:hover .isl,.btng:hover .isl{transform:translate(3px,-2px) scale(1.06)}
+
+/* double-bezel project cards */
+.bez{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);border-radius:24px;padding:6px;cursor:pointer;box-shadow:0 30px 80px -40px rgba(0,0,0,.9);transition:transform .8s var(--ease),border-color .8s var(--ease)}
+.bez:hover{transform:translateY(-6px);border-color:rgba(157,255,63,.35)}
+.core{position:relative;height:100%;border-radius:18px;background:linear-gradient(160deg,rgba(18,22,15,.9),rgba(7,9,6,.95));box-shadow:inset 0 1px 1px rgba(255,255,255,.07);padding:26px;display:flex;flex-direction:column;gap:16px;min-height:250px;box-sizing:border-box;overflow:hidden}
+.core .glow{position:absolute;left:-30%;right:-30%;bottom:-55%;height:70%;background:radial-gradient(closest-side,rgba(157,255,63,.16),transparent);pointer-events:none;opacity:0;transition:opacity .8s var(--ease)}
+.bez:hover .glow{opacity:1}
+
+.page-btn{border-radius:999px;transition:border-color .5s var(--ease),background .5s var(--ease)}
+.page-btn:hover{border-color:#9dff3f!important;background:rgba(255,255,255,.05)}
+.nav div{padding:7px 14px;border-radius:999px;transition:color .5s var(--ease),background .5s var(--ease)!important}
+.nav div:hover{background:rgba(255,255,255,.07)}
 
 /* ── mobile (≤768px) — desktop untouched ── */
 @media (max-width:768px){
@@ -48,16 +64,16 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
   .h1{font-size:26px!important}
   #shippedLine{font-size:12px!important}
   #projGrid{grid-template-columns:1fr!important}
-  #projGrid>.proj-card{min-height:200px!important;padding:18px!important}
-  .about-row{flex-direction:column!important;gap:18px!important;align-items:center!important}
-  .photo-box{width:200px!important;height:240px!important}
-  #photoFrame{width:180px!important;height:220px!important;font-size:10px!important}
+  #projGrid .core{min-height:190px!important;padding:20px!important}
+  .about-row{flex-direction:column!important;gap:18px!important}
   .p1{font-size:13px!important}
   .p2{display:none!important}
-  .hud-top{padding:12px 16px!important}
+  .hud-top{top:10px!important;padding:5px 6px 5px 14px!important;gap:6px!important;max-width:calc(100vw - 20px)}
+  .hud-top>div:first-child{display:none!important}
   .sys{display:none!important}
-  .nav{gap:16px!important}
-  .hud-bottom{padding:10px 16px!important}
+  .nav{gap:0!important}
+  .nav div{padding:7px 12px}
+  .hud-bottom{bottom:10px!important;padding:8px 16px!important;gap:12px!important;max-width:calc(100vw - 20px)}
   #coords{display:none!important}
   .progress-track{width:110px!important}
   #depth{min-width:0!important}
@@ -66,12 +82,15 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
 </head>
 <body>
 
-<div id="wrap" style="height:340vh;background:#060a06">
-<div id="viewport" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#060a06;font-family:'JetBrains Mono',monospace;cursor:crosshair;perspective:900px">
+<div id="wrap" style="height:340vh;background:#050505">
+<div id="viewport" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#050505;font-family:'JetBrains Mono',monospace;cursor:crosshair;perspective:900px">
+
+  <!-- ambient mesh glow -->
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(560px 420px at 82% -8%,rgba(157,255,63,.10),transparent 60%),radial-gradient(640px 520px at -10% 40%,rgba(63,255,216,.07),transparent 60%)"></div>
 
   <!-- ambient grid floor -->
   <div style="position:absolute;left:-15%;right:-15%;bottom:-60px;height:44vh;background-image:linear-gradient(rgba(150,255,70,.26) 1px,transparent 1px),linear-gradient(90deg,rgba(150,255,70,.2) 1px,transparent 1px);background-size:52px 52px;transform:perspective(480px) rotateX(63deg);transform-origin:50% 0;animation:gridMove 1.9s linear infinite"></div>
-  <div style="position:absolute;left:0;right:0;bottom:0;height:46vh;background:linear-gradient(#060a06 10%,rgba(6,10,6,.35) 55%,rgba(6,10,6,.85) 100%);pointer-events:none"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:46vh;background:linear-gradient(#050505 10%,rgba(5,5,5,.35) 55%,rgba(5,5,5,.85) 100%);pointer-events:none"></div>
   <div style="position:absolute;left:8%;right:8%;bottom:calc(44vh - 8px);height:1px;background:linear-gradient(90deg,transparent,rgba(150,255,70,.75),transparent);animation:pulseGlow 2.8s ease-in-out infinite"></div>
 
   <!-- ═══ 3D WORLD ═══ -->
@@ -81,17 +100,17 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
     <div id="s0" style="position:absolute;inset:0;transform:translateZ(0px)">
       <div class="hero" style="max-width:1240px;height:100%;margin:0 auto;padding:0 56px;display:flex;align-items:center;gap:20px">
         <div style="flex:1;display:flex;flex-direction:column;gap:22px">
-          <div style="color:rgba(210,255,180,.55);font-size:13px;animation:fadeUp .6s ease 2.5s both">&gt; initializing profile… <span style="color:#3fffd8">ok</span></div>
-          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:13ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 2.7s both">DYLAN_SPIVEY</div>
-          <div class="sub" style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 3s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
-          <div class="desc" style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 3.15s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
-          <div style="display:flex;gap:16px;animation:fadeUp .6s ease 3.3s both">
-            <div class="btn-primary" data-go="1" style="border:1px solid #9dff3f;color:#9dff3f;background:rgba(150,255,70,.08);font-size:14px;padding:14px 22px;cursor:pointer;box-shadow:0 0 18px rgba(150,255,70,.15)">cd /projects</div>
-            <div class="btn-ghost" data-go="2" style="border:1px solid rgba(150,255,70,.35);color:rgba(210,255,180,.75);font-size:14px;padding:14px 22px;cursor:pointer">cat about.md</div>
+          <div style="color:rgba(210,255,180,.55);font-size:13px;animation:fadeUp .6s ease 1.5s both">&gt; initializing profile… <span style="color:#3fffd8">ok</span></div>
+          <div class="big-title" style="overflow:hidden;white-space:nowrap;width:13ch;color:#e8ffdb;font-size:64px;font-weight:700;line-height:1.05;text-shadow:0 0 28px rgba(150,255,70,.35);animation:typeIn 1.4s steps(12) 1.6s both">DYLAN_SPIVEY</div>
+          <div class="sub" style="display:flex;align-items:center;gap:7px;color:#9dff3f;font-size:16px;animation:fadeUp .6s ease 1.8s both">&gt; a live log of everything i learn while becoming a programmer<div style="width:10px;height:19px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div></div>
+          <div class="desc" style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.8;max-width:460px;animation:fadeUp .6s ease 1.9s both">new posts compile weekly. expect broken builds,<br>fixed builds, and notes from the journey.</div>
+          <div style="display:flex;gap:16px;animation:fadeUp .6s ease 2s both">
+            <div class="btnp" data-go="1">cd /projects <span class="isl">↗</span></div>
+            <div class="btng" data-go="2">cat about.md <span class="isl">→</span></div>
           </div>
         </div>
         <!-- wireframe sphere + satellite -->
-        <div class="sphere-box" style="width:380px;height:380px;display:flex;align-items:center;justify-content:center;perspective:800px;animation:fadeIn 1s ease 2.9s both">
+        <div class="sphere-box" style="width:380px;height:380px;display:flex;align-items:center;justify-content:center;perspective:800px;animation:fadeIn 1s ease 1.9s both">
           <div id="sphere" style="transform-style:preserve-3d;transition:transform .18s ease-out">
             <div style="width:240px;height:240px;transform-style:preserve-3d;animation:sphereSpin 12s linear infinite">
               <div style="position:absolute;inset:0;border:1.5px solid rgba(150,255,70,.8);border-radius:50%"></div>
@@ -108,7 +127,7 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
           </div>
         </div>
       </div>
-      <div class="scroll-hint" style="position:absolute;left:0;right:0;bottom:86px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp .6s ease 3.5s both">
+      <div class="scroll-hint" style="position:absolute;left:0;right:0;bottom:86px;display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeUp .6s ease 2.2s both">
         <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.45)">SCROLL ▼ TO TRAVEL — NEXT WAYPOINT: /PROJECTS 1600u</div>
         <div style="width:1px;height:24px;background:linear-gradient(#9dff3f,transparent);animation:scrollHint 1.6s ease-in-out infinite"></div>
       </div>
@@ -117,7 +136,7 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
     <!-- WAYPOINT 02 · PROJECTS -->
     <div id="s1" style="position:absolute;inset:0;transform:translateZ(-1600px);opacity:.15">
       <div class="wp-pad" style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:36px">
-        <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.4)">WAYPOINT 02/03 — ~/projects</div>
+        <div style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:6px 14px;background:rgba(255,255,255,.03);font-size:10px;letter-spacing:3px;color:rgba(210,255,180,.55)"><span style="width:5px;height:5px;border-radius:50%;background:#9dff3f;box-shadow:0 0 8px #9dff3f"></span>WAYPOINT 02/03 — ~/projects</div>
         <div style="display:flex;flex-direction:column;gap:14px">
           <div class="h1" style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; ls ~/projects</div>
           <div id="shippedLine" style="color:rgba(210,255,180,.55);font-size:14px"></div>
@@ -137,21 +156,8 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
     <!-- WAYPOINT 03 · ABOUT -->
     <div id="s2" style="position:absolute;inset:0;transform:translateZ(-3200px);opacity:.1">
       <div class="wp-pad" style="max-width:1240px;height:100%;margin:0 auto;padding:120px 56px 0;display:flex;flex-direction:column;gap:34px">
-        <div style="font-size:11px;letter-spacing:3px;color:rgba(210,255,180,.4)">WAYPOINT 03/03 — ~/about</div>
+        <div style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:6px 14px;background:rgba(255,255,255,.03);font-size:10px;letter-spacing:3px;color:rgba(210,255,180,.55)"><span style="width:5px;height:5px;border-radius:50%;background:#9dff3f;box-shadow:0 0 8px #9dff3f"></span>WAYPOINT 03/03 — ~/about</div>
         <div class="about-row" style="display:flex;gap:56px;align-items:flex-start">
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div class="photo-box" style="position:relative;width:280px;height:340px;padding:10px">
-              <div style="position:absolute;left:0;top:0;width:22px;height:22px;border-left:2px solid #9dff3f;border-top:2px solid #9dff3f"></div>
-              <div style="position:absolute;right:0;top:0;width:22px;height:22px;border-right:2px solid #9dff3f;border-top:2px solid #9dff3f"></div>
-              <div style="position:absolute;left:0;bottom:0;width:22px;height:22px;border-left:2px solid #9dff3f;border-bottom:2px solid #9dff3f"></div>
-              <div style="position:absolute;right:0;bottom:0;width:22px;height:22px;border-right:2px solid #9dff3f;border-bottom:2px solid #9dff3f"></div>
-              <!-- ponytail: native file input + drag/drop instead of the 33KB image-slot.js component -->
-              <label id="photoFrame" style="width:260px;height:320px;display:flex;align-items:center;justify-content:center;border:1px dashed rgba(150,255,70,.35);color:rgba(210,255,180,.5);font-size:12px;letter-spacing:2px;text-align:center;cursor:pointer;background-size:cover;background-position:center">DROP YOUR PHOTO
-                <input id="photoInput" type="file" accept="image/*" style="display:none">
-              </label>
-            </div>
-            <div style="color:rgba(210,255,180,.35);font-size:11px;text-align:center">// drag a photo onto the frame</div>
-          </div>
           <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:560px">
             <div class="h1" style="color:#e8ffdb;font-size:44px;font-weight:700;text-shadow:0 0 24px rgba(150,255,70,.3)">&gt; cat readme.md</div>
             <div class="p1" style="font-family:'Space Grotesk',sans-serif;color:rgba(226,245,215,.78);font-size:16px;line-height:1.75">I'm Dylan Spivey. I'm learning to program and publishing the whole process — every bug, breakthrough, and lesson ends up here.</div>
@@ -163,8 +169,8 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
               <div style="color:#9dff3f">&gt; writing the first posts</div>
             </div>
             <div style="display:flex;align-items:center;gap:14px">
-              <a class="link-btn" href="https://github.com/Lyze-Dev" target="_blank" rel="noopener" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">GITHUB ↗</a>
-              <a class="link-btn" href="mailto:dspivey911@gmail.com" style="border:1px solid rgba(150,255,70,.4);color:rgba(210,255,180,.7);font-size:12px;letter-spacing:1px;padding:11px 18px;cursor:pointer;text-decoration:none">EMAIL ↗</a>
+              <a class="btnp" href="https://github.com/Lyze-Dev" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:1px">GITHUB <span class="isl">↗</span></a>
+              <a class="btng" href="mailto:dspivey911@gmail.com" style="font-size:12px;letter-spacing:1px">EMAIL <span class="isl">↗</span></a>
             </div>
             <div style="display:flex;align-items:center;gap:8px;color:rgba(210,255,180,.5);font-size:13px;padding-top:6px">END OF LINE<div style="width:9px;height:16px;background:#9dff3f;animation:blinkCursor 1s step-end infinite"></div><span style="color:rgba(210,255,180,.3);padding-left:14px">scroll ▲ to travel back</span></div>
           </div>
@@ -174,9 +180,9 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
   </div>
 
   <!-- ═══ HUD TOP ═══ -->
-  <div class="hud-top" style="position:absolute;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:20px 36px;border-bottom:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
+  <div class="hud-top" style="position:absolute;top:18px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:14px;padding:7px 8px 7px 18px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(8,10,7,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 60px -20px rgba(0,0,0,.8),inset 0 1px 1px rgba(255,255,255,.06);animation:fadeIn .8s ease 1.5s both">
     <div style="display:flex;align-items:center;gap:8px;color:#9dff3f;font-size:13px">dylan@spivey:~$<div style="width:8px;height:15px;background:#9dff3f;animation:blinkCursor 1.2s step-end infinite"></div></div>
-    <div class="nav" style="display:flex;gap:28px;font-size:12px;letter-spacing:1px">
+    <div class="nav" style="display:flex;gap:2px;font-size:12px;letter-spacing:1px">
       <div id="nav0" data-go="0" style="color:#9dff3f;cursor:pointer;transition:color .2s ease">/home</div>
       <div id="nav1" data-go="1" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/projects</div>
       <div id="nav2" data-go="2" style="color:rgba(210,255,180,.5);cursor:pointer;transition:color .2s ease">/about</div>
@@ -185,7 +191,7 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
   </div>
 
   <!-- ═══ HUD BOTTOM ═══ -->
-  <div class="hud-bottom" style="position:absolute;bottom:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:16px 36px;border-top:1px solid rgba(150,255,70,.22);background:rgba(6,10,6,.72);backdrop-filter:blur(6px);animation:fadeIn .8s ease 2.4s both">
+  <div class="hud-bottom" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:22px;padding:10px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(8,10,7,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 20px 60px -20px rgba(0,0,0,.8),inset 0 1px 1px rgba(255,255,255,.06);animation:fadeIn .8s ease 1.5s both">
     <div id="coords" style="color:rgba(210,255,180,.45);font-size:11px;letter-spacing:1px;min-width:130px">X:0000 Y:0000</div>
     <div style="display:flex;align-items:center;gap:16px">
       <div id="path" style="color:#9dff3f;font-size:12px;letter-spacing:1px;min-width:80px;text-align:right">~/home</div>
@@ -204,12 +210,12 @@ html,body{margin:0;padding:0;background:#060a06;-webkit-text-size-adjust:100%;te
   <div style="position:absolute;inset:0;z-index:71;pointer-events:none;background:radial-gradient(ellipse at center,transparent 52%,rgba(0,0,0,.5) 100%)"></div>
 
   <!-- ═══ BOOT SEQUENCE ═══ -->
-  <div style="position:absolute;inset:0;z-index:80;background:#060a06;display:flex;align-items:center;justify-content:center;animation:bootHide .5s ease 2.3s forwards">
+  <div style="position:absolute;inset:0;z-index:80;background:#050505;display:flex;align-items:center;justify-content:center;animation:bootHide .5s ease 1.4s forwards">
     <div style="display:flex;flex-direction:column;gap:12px;font-size:14px;min-width:420px;font-family:'JetBrains Mono',monospace">
-      <div style="color:#9dff3f;animation:fadeIn .05s .15s both">BOOTING DYLANSPIVEY.DEV v1.0</div>
-      <div style="color:rgba(210,255,180,.6);animation:fadeIn .05s .6s both">&gt; loading grid… <span style="color:#3fffd8">ok</span></div>
-      <div style="color:rgba(210,255,180,.6);animation:fadeIn .05s 1.1s both">&gt; mounting /home /projects /about… <span style="color:#3fffd8">ok</span></div>
-      <div style="display:flex;align-items:center;gap:8px;color:#e8ffdb;animation:fadeIn .05s 1.7s both">WELCOME, VISITOR<div style="width:9px;height:16px;background:#9dff3f;animation:blinkCursor .8s step-end infinite"></div></div>
+      <div style="color:#9dff3f;animation:fadeIn .05s .1s both">BOOTING DYLANSPIVEY.DEV v1.0</div>
+      <div style="color:rgba(210,255,180,.6);animation:fadeIn .05s .35s both">&gt; loading grid… <span style="color:#3fffd8">ok</span></div>
+      <div style="color:rgba(210,255,180,.6);animation:fadeIn .05s .6s both">&gt; mounting /home /projects /about… <span style="color:#3fffd8">ok</span></div>
+      <div style="display:flex;align-items:center;gap:8px;color:#e8ffdb;animation:fadeIn .05s .9s both">WELCOME, VISITOR<div style="width:9px;height:16px;background:#9dff3f;animation:blinkCursor .8s step-end infinite"></div></div>
     </div>
   </div>
 
@@ -241,16 +247,19 @@ function renderProjects(){
   const slice = projects.slice(page*PER, (page+1)*PER);
   el('projGrid').innerHTML = slice.map((p,i)=>{
     const num = String(page*PER + i + 1).padStart(2,'0');
-    const tags = p.tags.map(t=>`<div style="border:1px solid rgba(150,255,70,.3);color:rgba(210,255,180,.6);font-size:11px;padding:4px 9px">${t}</div>`).join('');
-    return `<div class="proj-card" ${p.link ? `onclick="location.href='${p.link}'"` : ''} style="border:1px ${p.border};background:${p.bg};padding:26px;display:flex;flex-direction:column;gap:16px;cursor:pointer;min-height:250px">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div style="color:rgba(210,255,180,.4);font-size:13px">${num}</div>
-        <div style="color:${p.statusColor};font-size:11px;letter-spacing:2px">${p.status}</div>
+    const tags = p.tags.map(t=>`<div style="border:1px solid rgba(255,255,255,.14);border-radius:999px;color:rgba(210,255,180,.6);font-size:11px;padding:4px 12px">${t}</div>`).join('');
+    return `<div class="bez proj-card" ${p.link ? `onclick="location.href='${p.link}'"` : ''}>
+      <div class="core" style="border:1px ${p.border}">
+        <div class="glow"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="color:rgba(210,255,180,.4);font-size:13px">${num}</div>
+          <div style="color:${p.statusColor};font-size:11px;letter-spacing:2px">${p.status}</div>
+        </div>
+        <div style="color:${p.nameColor};font-family:'Clash Display','Space Grotesk',sans-serif;font-size:23px;font-weight:600;letter-spacing:-.01em">${p.name}</div>
+        <div style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.7;flex:1">${p.desc}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">${tags}</div>
+        <div style="color:${p.footColor};font-size:13px">${p.foot}</div>
       </div>
-      <div style="color:${p.nameColor};font-size:20px;font-weight:700">${p.name}</div>
-      <div style="color:rgba(210,255,180,.5);font-size:13px;line-height:1.7;flex:1">${p.desc}</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">${tags}</div>
-      <div style="color:${p.footColor};font-size:13px">${p.foot}</div>
     </div>`;
   }).join('');
   const shipped = projects.filter(p=>p.shipped).length;
@@ -304,9 +313,8 @@ function tick(){
   for (let i=0;i<3;i++){
     const s = el('s'+i);
     const d = i - p;
-    // ponytail: mobile screens overlap when ghosted, so fade distant waypoints out entirely
-    const mobile = innerWidth <= 768;
-    const o = d >= 0 ? Math.max(1 - d*(mobile ? 1.6 : 0.55), mobile ? 0 : 0.1) : Math.max(1 + d*1.9, 0);
+    // fade distant waypoints out completely — ghosted screens overlap and read as double exposure
+    const o = d >= 0 ? Math.max(1 - d*1.6, 0) : Math.max(1 + d*1.9, 0);
     s.style.opacity = o.toFixed(3);
     s.style.visibility = o <= 0.01 ? 'hidden' : 'visible';
     s.style.pointerEvents = Math.abs(d) < 0.4 ? 'auto' : 'none';
@@ -320,19 +328,6 @@ function tick(){
 }
 tick();
 
-// ── photo drop (native, replaces image-slot.js) ──
-const frame = el('photoFrame'), input = el('photoInput');
-function setPhoto(file){
-  if (!file || !file.type.startsWith('image/')) return;
-  const url = URL.createObjectURL(file);
-  frame.style.backgroundImage = `url(${url})`;
-  frame.style.border = '1px solid rgba(150,255,70,.5)';
-  frame.textContent = '';
-  frame.appendChild(input);
-}
-input.addEventListener('change', e=>setPhoto(e.target.files[0]));
-['dragover','dragenter'].forEach(ev=>frame.addEventListener(ev, e=>{ e.preventDefault(); frame.style.borderColor='#9dff3f'; }));
-frame.addEventListener('drop', e=>{ e.preventDefault(); setPhoto(e.dataTransfer.files[0]); });
 </script>
 </body>
 </html>
